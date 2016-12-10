@@ -1,0 +1,51 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "0.1.0",
+    "command": "cmd",
+    "isShellCommand": true,
+    "args": [
+        "/C"
+    ],
+    "showOutput": "always",
+    "suppressTaskName": true,
+    "tasks": [
+        {
+            "taskName": "BUILD: Auto build",
+            "isBuildCommand": true,
+            "args": [
+                "cd ${fileDirname} && avr-gcc -std=c99 -g -Os -mmcu=atmega328p -c ./*.c && avr-gcc -g -mmcu=atmega328p -o out.elf ./*.o && avr-objcopy -j .text -j .data -O ihex ./out.elf ./out.hex && avrdude -c arduino -p atmega328p -P com5 -U flash:w:./out.hex"
+            ]
+        },
+        {
+            "taskName": "1. Build object files",
+            "args": [
+                "cd ${fileDirname} && avr-gcc -std=c99 -g -Os -mmcu=atmega328p -c ./*.c"
+            ]
+        },
+        {
+            "taskName": "2. Link all .o files",
+            "args": [
+                "cd ${fileDirname} && avr-gcc -g -mmcu=atmega328p -o ./out.elf ./*.o"
+            ]
+        },
+        {
+            "taskName": "3. Elf -> hex",
+            "args": [
+                "cd ${fileDirname} && avr-objcopy -j .text -j .data -O ihex ./out.elf ./out.hex"
+            ]
+        },
+        {
+            "taskName": "4. Flash",
+            "args": [
+                "cd ${fileDirname} && avrdude -c arduino -p atmega328p -P com3 -U flash:w:./out.hex"
+            ]
+        },
+        {
+            "taskName": "5. Clear build files",
+            "args": [
+                "cd ${fileDirname} && rm -f ./*.o ./*.elf ./*.hex"
+            ]
+        }
+    ]
+}
