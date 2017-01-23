@@ -14,7 +14,7 @@
             "taskName": "BUILD: Auto build",
             "isBuildCommand": true,
             "args": [
-                "cd ${fileDirname} && avr-gcc -std=c99 -g -Os -mmcu=atmega328p -c ./*.c && avr-gcc -g -mmcu=atmega328p -o out.elf ./*.o && avr-objcopy -j .text -j .data -O ihex ./out.elf ./out.hex && avrdude -c arduino -p atmega328p -P com5 -U flash:w:./out.hex"
+                "cd ${fileDirname} && avr-gcc -std=c99 -g -Os -mmcu=atmega328p -c ./*.c && avr-gcc -g -mmcu=atmega328p -o out.elf ./*.o && avr-objcopy -j .text -j .data -O ihex ./out.elf ./out.hex && avrdude -c arduino -p atmega328p -P com3 -U flash:w:./out.hex"
             ]
         },
         {
